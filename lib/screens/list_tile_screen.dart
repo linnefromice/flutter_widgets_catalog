@@ -8,6 +8,7 @@ class ListTileScreen extends StatefulWidget {
 class _State extends State<ListTileScreen> {
   bool _lights = false;
   bool _slowly = false;
+  String _language = "Japanese";
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,37 @@ class _State extends State<ListTileScreen> {
                 _slowly = value;
               });
             },
-          )
+          ),
+          RadioListTile(
+            title: Text("Japanese"),
+            value: "Japanese",
+            groupValue: _language,
+            onChanged: (String value) {
+              setState(() {
+                _language = value;
+              });
+            },
+          ),
+          RadioListTile(
+            title: Text("English"),
+            value: "English",
+            groupValue: _language,
+            onChanged: (String value) {
+              setState(() {
+                _language = value;
+              });
+            },
+          ),
+          RadioListTile(
+            title: Text("Spanish"),
+            value: "Spanish",
+            groupValue: _language,
+            onChanged: (String value) {
+              setState(() {
+                _language = value;
+              });
+            },
+          ),
         ],
       ),
     );
