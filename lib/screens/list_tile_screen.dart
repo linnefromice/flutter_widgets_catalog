@@ -7,6 +7,7 @@ class ListTileScreen extends StatefulWidget {
 
 class _State extends State<ListTileScreen> {
   bool _lights = false;
+  bool _slowly = false;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +22,16 @@ class _State extends State<ListTileScreen> {
             onChanged: (bool value) {
               setState(() {
                 _lights = value;
+              });
+            },
+          ),
+          CheckboxListTile(
+            title: Text("Animate Slowly"),
+            secondary: Icon(Icons.hourglass_empty),
+            value: _slowly,
+            onChanged: (bool value) {
+              setState(() {
+                _slowly = value;
               });
             },
           )
