@@ -18,6 +18,8 @@ class _State extends State<GridViewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: GridView.count(
+        mainAxisSpacing: 10,
+        crossAxisSpacing: 10,
         crossAxisCount: 3,
         children: _children
       ),
