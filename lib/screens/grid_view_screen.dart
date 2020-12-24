@@ -17,7 +17,28 @@ class _State extends State<GridViewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _GridViewCount()
+      body: _GridViewCount(),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.looks_one),
+            label: ".count"
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.looks_two),
+            label: ".builder"
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.looks_3),
+            label: ".custom"
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.looks_4),
+            label: ".extent"
+          ),
+        ],
+      ),
     );
   }
 }
