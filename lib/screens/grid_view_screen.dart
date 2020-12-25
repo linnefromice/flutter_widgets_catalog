@@ -23,9 +23,7 @@ class _State extends State<GridViewScreen> {
       case 2:
         return _GridViewExtent();
       case 3:
-        return Center(
-          child: Text("You are selected .custom"),
-        );
+        return _GridViewCustom();
       default:
         return Center(
           child: Text("Exception."),
@@ -128,6 +126,31 @@ class _GridViewExtent extends StatelessWidget {
       mainAxisSpacing: 4,
       crossAxisSpacing: 4,
       children: _children,
+    );
+  }
+}
+
+class _GridViewCustom extends StatelessWidget {
+  final List<Widget> _children = List.generate(10, (index) => Container(
+    color: Colors.yellow[index * 100],
+    child: CircleAvatar(
+      child: Text(index.toString()),
+      backgroundColor: Colors.white,
+    ),
+  ));
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.custom(
+      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+        maxCrossAxisExtent: 150.0,
+        mainAxisSpacing: 10.0,
+        crossAxisSpacing: 10.0,
+        childAspectRatio: 4.0,
+      ),
+      childrenDelegate: SliverChildListDelegate(
+        _children
+      ),
     );
   }
 }
