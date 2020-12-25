@@ -19,9 +19,7 @@ class _State extends State<GridViewScreen> {
       case 0:
         return _GridViewCount();
       case 1:
-        return Center(
-          child: Text("You are selected .builder"),
-        );
+        return _GridViewBuilder();
       case 2:
         return Center(
           child: Text("You are selected .custom"),
@@ -85,6 +83,32 @@ class _GridViewCount extends StatelessWidget {
       crossAxisSpacing: 10,
       crossAxisCount: 3,
       children: _children
+    );
+  }
+}
+
+class _GridViewBuilder extends StatelessWidget {
+  final List<Widget> _children = List.generate(10, (index) => Container(
+    color: Colors.blue[index * 100],
+    child: CircleAvatar(
+      child: Text(index.toString()),
+      backgroundColor: Colors.white,
+    ),
+  ));
+
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> widgets = [];
+    return GridView.builder(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3
+      ),
+      itemBuilder: (context, index) {
+        if (index >= widgets.length) {
+          widgets.addAll(_children);
+        }
+        return widgets[index];
+      },
     );
   }
 }
