@@ -22,11 +22,11 @@ class _State extends State<GridViewScreen> {
         return _GridViewBuilder();
       case 2:
         return Center(
-          child: Text("You are selected .custom"),
+          child: Text("You are selected .extent"),
         );
       case 3:
         return Center(
-          child: Text("You are selected .extent"),
+          child: Text("You are selected .custom"),
         );
       default:
         return Center(
@@ -55,11 +55,11 @@ class _State extends State<GridViewScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.looks_3),
-            label: ".custom"
+            label: ".extent"
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.looks_4),
-            label: ".extent"
+            label: ".custom"
           ),
         ],
       ),
