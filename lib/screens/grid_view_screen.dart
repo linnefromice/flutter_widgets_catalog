@@ -21,9 +21,7 @@ class _State extends State<GridViewScreen> {
       case 1:
         return _GridViewBuilder();
       case 2:
-        return Center(
-          child: Text("You are selected .extent"),
-        );
+        return _GridViewExtent();
       case 3:
         return Center(
           child: Text("You are selected .custom"),
@@ -109,6 +107,27 @@ class _GridViewBuilder extends StatelessWidget {
         }
         return widgets[index];
       },
+    );
+  }
+}
+
+class _GridViewExtent extends StatelessWidget {
+  final List<Widget> _children = List.generate(10, (index) => Container(
+    color: Colors.green[index * 100],
+    child: CircleAvatar(
+      child: Text(index.toString()),
+      backgroundColor: Colors.white,
+    ),
+  ));
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.extent(
+      maxCrossAxisExtent: 150,
+      padding: EdgeInsets.all(8),
+      mainAxisSpacing: 4,
+      crossAxisSpacing: 4,
+      children: _children,
     );
   }
 }
