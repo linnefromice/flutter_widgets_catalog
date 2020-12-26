@@ -7,7 +7,10 @@ class SliverAppBarScreen extends StatelessWidget {
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
-            title: Text("SliverAppBarScreen")
+            title: Text("SliverAppBarScreen"),
+            floating: true,
+            flexibleSpace: Placeholder(),
+            expandedHeight: 200,
           ),
           SliverList(
             delegate: SliverChildBuilderDelegate(
