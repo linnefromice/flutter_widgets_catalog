@@ -26,7 +26,13 @@ class RiverpodScreen extends ConsumerWidget {
             Text("${watch(_counterProvider).count}"),
           ],
         ),
-      )
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          context.read(_counterProvider).increment();
+        },
+        child: Icon(Icons.add),
+      ),
     );
   }
 }
