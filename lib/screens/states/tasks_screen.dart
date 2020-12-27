@@ -42,17 +42,39 @@ class TasksScreen extends HookWidget {
     final state = useProvider(_tasksProvider.state);
 
     return Scaffold(
-      body: ListView.builder(
-        itemCount: state.length,
-        itemBuilder: (BuildContext context, int index) {
-          final task = state[index];
-          return Card(
-            child: ListTile(
-              leading: Icon(Icons.work),
-              title: Text(task.title),
-              subtitle: Text("${task.id.toString()} / ${task.createDate}"),
+      appBar: AppBar(
+        actions: [
+          TextField(
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: 'Enter a search term'
             ),
-          );
+          )
+        ],
+      ),
+      body: ListView.builder(
+        itemCount: state.length + 1,
+        itemBuilder: (BuildContext context, int index) {
+          if (index == 0) {
+            return Card(
+              child: ListTile(
+                title: TextField(),
+                trailing: IconButton(
+                  icon: Icon(Icons.add),
+                  onPressed: () {},
+                ),
+              ),
+            );
+          } else {
+            final task = state[index - 1];
+            return Card(
+              child: ListTile(
+                leading: Icon(Icons.work),
+                title: Text(task.title),
+                subtitle: Text("${task.id.toString()} / ${task.createDate}"),
+              ),
+            );
+          }
         },
       )
     );
