@@ -12,6 +12,40 @@ class _State extends State<TabBarViewScreen> with SingleTickerProviderStateMixin
     Tab(text: "Three"),
     Tab(text: "Four")
   ];
+  final List<Widget> views = <Widget>[
+    Center(
+      child: Text(
+        "View One",
+        style: TextStyle(
+          color: Colors.red[200]
+        ),
+      ),
+    ),
+    Center(
+      child: Text(
+        "View Two",
+        style: TextStyle(
+            color: Colors.red[400]
+        ),
+      ),
+    ),
+    Center(
+      child: Text(
+        "View Three",
+        style: TextStyle(
+            color: Colors.red[600]
+        ),
+      ),
+    ),
+    Center(
+      child: Text(
+        "View Four",
+        style: TextStyle(
+            color: Colors.red[800]
+        ),
+      ),
+    ),
+  ];
   TabController _tabController;
 
   @override
@@ -31,7 +65,7 @@ class _State extends State<TabBarViewScreen> with SingleTickerProviderStateMixin
       ),
       body: TabBarView(
         controller: _tabController,
-        children: tabs,
+        children: views,
       ),
     );
   }
