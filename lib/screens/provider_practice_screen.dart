@@ -25,6 +25,15 @@ class ProviderPracticeScreen extends StatelessWidget {
             ],
           ),
         ),
+        floatingActionButton: Consumer<CounterModel>(
+          builder: (_, model, __) {
+            return FloatingActionButton(
+              onPressed: model.increment,
+              tooltip: 'Increment',
+              child: Icon(Icons.add),
+            );
+          },
+        ),
       ),
     );
   }
