@@ -29,6 +29,10 @@ class _State extends State<TabBarViewScreen> with SingleTickerProviderStateMixin
           controller: _tabController,
         ),
       ),
+      body: TabBarView(
+        controller: _tabController,
+        children: tabs,
+      ),
     );
   }
 }
