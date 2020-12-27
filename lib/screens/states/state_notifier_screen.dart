@@ -19,6 +19,7 @@ class StateNotifierScreen extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Text('StateNotifier'),
             Text('You have pushed the button this many times:'),
             Text("${watch(_counterProvider.state)}"),
           ],

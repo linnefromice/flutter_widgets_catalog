@@ -22,6 +22,7 @@ class RiverpodScreen extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Text('Riverpod'),
             Text('You have pushed the button this many times:'),
             Text("${watch(_counterProvider).count}"),
           ],

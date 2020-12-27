@@ -20,6 +20,7 @@ class ProviderPracticeScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              Text("Provider (flutter standard)"),
               Text('You have pushed the button this many times:'),
               CounterText(),
             ],
