@@ -3,6 +3,7 @@ import 'package:linnefromice/screens/grid_view_screen.dart';
 import 'package:linnefromice/screens/interactive_viewer_screen.dart';
 import 'package:linnefromice/screens/list_tile_screen.dart';
 import 'package:linnefromice/screens/sliver_app_bar_screen.dart';
+import 'package:linnefromice/screens/tab_bar_view_screen.dart';
 
 void main() {
   runApp(App());
@@ -17,7 +18,7 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SliverAppBarScreen(),
+      home: TabBarViewScreen(),
     );
   }
 }

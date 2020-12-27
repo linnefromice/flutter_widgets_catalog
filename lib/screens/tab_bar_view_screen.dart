@@ -5,10 +5,30 @@ class TabBarViewScreen extends StatefulWidget {
   _State createState() => _State();
 }
 
-class _State extends State<TabBarViewScreen> {
+class _State extends State<TabBarViewScreen> with SingleTickerProviderStateMixin {
+  final List<Tab> tabs = <Tab>[
+    Tab(text: 'One'),
+    Tab(text: "Two"),
+    Tab(text: "Three"),
+    Tab(text: "Four")
+  ];
+  TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: tabs.length, vsync: this);
+  }
+
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return Scaffold(
+      appBar: AppBar(
+        bottom: TabBar(
+          tabs: tabs,
+          controller: _tabController,
+        ),
+      ),
+    );
   }
 }
