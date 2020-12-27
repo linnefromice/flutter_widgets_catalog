@@ -34,34 +34,46 @@ class TasksState extends StateNotifier<List<Task>> {
     Task(3, "READY task", Status.READY, "20201225", "20201225"),
     Task(4, "PENDING task", Status.PENDING, "20201225", "20201225"),
   ]);
+
+  void create(final String title) {
+    state = [...state, Task(
+      state.length + 1,
+      title,
+      Status.READY,
+      "20201227",
+      "20201227",
+    )];
+  }
 }
 
 class TasksScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
+    final _textController = useTextEditingController();
     final state = useProvider(_tasksProvider.state);
+    final _provider = useProvider(_tasksProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          TextField(
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              hintText: 'Enter a search term'
-            ),
-          )
-        ],
-      ),
       body: ListView.builder(
         itemCount: state.length + 1,
         itemBuilder: (BuildContext context, int index) {
           if (index == 0) {
             return Card(
               child: ListTile(
-                title: TextField(),
+                leading: Text("New"),
+                title: TextField(
+                  controller: _textController,
+                  decoration: InputDecoration(
+                    hintText: 'Input new task title...',
+                  ),
+                ),
                 trailing: IconButton(
                   icon: Icon(Icons.add),
-                  onPressed: () {},
+                  onPressed: () {
+                    _provider.create(
+                      _textController.text
+                    );
+                  },
                 ),
               ),
             );
@@ -71,7 +83,7 @@ class TasksScreen extends HookWidget {
               child: ListTile(
                 leading: Icon(Icons.work),
                 title: Text(task.title),
-                subtitle: Text("${task.id.toString()} / ${task.createDate}"),
+                subtitle: Text("${task.id.toString()} / ${task.status} / ${task.createDate}"),
               ),
             );
           }
