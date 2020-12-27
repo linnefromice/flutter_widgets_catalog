@@ -61,6 +61,13 @@ class _State extends State<TabBarViewScreen> with SingleTickerProviderStateMixin
         bottom: TabBar(
           tabs: tabs,
           controller: _tabController,
+          unselectedLabelColor: Colors.grey,
+          indicatorColor: Colors.blue,
+          indicatorSize: TabBarIndicatorSize.tab,
+          indicatorWeight: 2,
+          indicatorPadding: EdgeInsets.symmetric(horizontal: 18.0,
+              vertical: 8),
+          labelColor: Colors.black,
         ),
       ),
       body: TabBarView(
