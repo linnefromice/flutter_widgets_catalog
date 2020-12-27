@@ -8,6 +8,7 @@ import 'package:linnefromice/screens/states/provider_practice_screen.dart';
 import 'package:linnefromice/screens/sliver_app_bar_screen.dart';
 import 'package:linnefromice/screens/states/riverpod_screen.dart';
 import 'package:linnefromice/screens/states/state_notifier_screen.dart';
+import 'package:linnefromice/screens/states/tasks_screen.dart';
 import 'package:linnefromice/screens/tab_bar_view_screen.dart';
 
 void main() {
@@ -25,7 +26,7 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HooksRiverpodScreen(),
+      home: TasksScreen(),
     );
   }
 }
