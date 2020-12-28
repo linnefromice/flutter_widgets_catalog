@@ -87,6 +87,10 @@ class TaskCard extends StatelessWidget {
             Text("更新日: ${task.updateDate}"),
           ],
         ),
+        trailing: IconButton(
+          icon: Icon(Icons.menu),
+          onPressed: () {},
+        ),
       ),
     );
   }
