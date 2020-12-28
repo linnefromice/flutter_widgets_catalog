@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 
 enum Status {
   PENDING,
@@ -28,19 +29,21 @@ final _tasksProvider = StateNotifierProvider((_) => TasksState());
 
 class TasksState extends StateNotifier<List<Task>> {
   TasksState() : super([
-    Task(1, "DONE task", Status.DONE, "20201225", "20201225"),
-    Task(2, "DOING task", Status.DOING, "20201225", "20201225"),
-    Task(3, "READY task", Status.READY, "20201225", "20201225"),
-    Task(4, "PENDING task", Status.PENDING, "20201225", "20201225"),
+    Task(1, "DONE task", Status.DONE, "2020.12.25", "2020.12.25"),
+    Task(2, "DOING task", Status.DOING, "2020.12.25", "2020.12.25"),
+    Task(3, "READY task", Status.READY, "2020.12.25", "2020.12.25"),
+    Task(4, "PENDING task", Status.PENDING, "2020.12.25", "2020.12.25"),
   ]);
 
   void create(final String title) {
+    final _dateFormat = DateFormat('yyyy.MM.dd');
+
     state = [...state, Task(
       state.length + 1,
       title,
       Status.READY,
-      "20201227",
-      "20201227",
+      _dateFormat.format(DateTime.now()),
+      _dateFormat.format(DateTime.now()),
     )];
   }
 }
