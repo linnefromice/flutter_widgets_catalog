@@ -85,7 +85,14 @@ class TasksScreen extends HookWidget {
               child: ListTile(
                 leading: Icon(Icons.work),
                 title: Text(task.title),
-                subtitle: Text("${task.id.toString()} / ${task.status} / ${task.createDate}"),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("ステータス: ${task.status}"),
+                    Text("作成日: ${task.createDate}"),
+                    Text("更新日: ${task.updateDate}"),
+                  ],
+                ),
               ),
             );
           }
