@@ -46,12 +46,35 @@ class TasksState extends StateNotifier<List<Task>> {
       _dateFormat.format(DateTime.now()),
     )];
   }
+
+  void updateStatus(final int id, final Status status) {
+    final _dateFormat = DateFormat('yyyy.MM.dd');
+    int oldTaskIndex;
+    Task oldTask;
+    print("Run updateStatus ... ${id.toString()} / ${status.toString()}");
+    state.asMap().forEach((int index, Task element) {
+      if (element.id == id) {
+        oldTask = element;
+        oldTaskIndex = index;
+        return;
+      }
+    });
+    state.removeAt(oldTaskIndex);
+    state = [...state, Task(
+      oldTask.id,
+      oldTask.title,
+      status,
+      oldTask.createDate,
+      _dateFormat.format(DateTime.now()),
+    )];
+  }
 }
 
 class TaskCard extends StatelessWidget {
   final Task task;
+  final TasksState _provider;
 
-  TaskCard(this.task);
+  TaskCard(this.task, this._provider);
 
   String convertStatusMessage(final Status status) {
     switch(status) {
@@ -93,28 +116,28 @@ class TaskCard extends StatelessWidget {
                   children: <Widget>[
                     SimpleDialogOption(
                       onPressed: () {
-                        // _provider.updateStatus(id, Status.PENDING);
+                        _provider.updateStatus(task.id, Status.PENDING);
                         Navigator.pop(context);
                       },
                       child: Text("保留"),
                     ),
                     SimpleDialogOption(
                       onPressed: () {
-                        // _provider.updateStatus(id, Status.READY);
+                        _provider.updateStatus(task.id, Status.READY);
                         Navigator.pop(context);
                       },
                       child: Text("着手可能"),
                     ),
                     SimpleDialogOption(
                       onPressed: () {
-                        // _provider.updateStatus(id, Status.DOING);
+                        _provider.updateStatus(task.id, Status.DOING);
                         Navigator.pop(context);
                       },
                       child: Text("対応中"),
                     ),
                     SimpleDialogOption(
                       onPressed: () {
-                        // _provider.updateStatus(id, Status.DONE);
+                        _provider.updateStatus(task.id, Status.DONE);
                         Navigator.pop(context);
                       },
                       child: Text("完了"),
@@ -162,7 +185,7 @@ class TasksScreen extends HookWidget {
               ),
             );
           } else {
-            return TaskCard(state[index - 1]);
+            return TaskCard(state[index - 1], _provider);
           }
         },
       )
