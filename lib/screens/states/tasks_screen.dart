@@ -84,7 +84,46 @@ class TaskCard extends StatelessWidget {
         ),
         trailing: IconButton(
           icon: Icon(Icons.menu),
-          onPressed: () {},
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return SimpleDialog(
+                  title: Text(task.title),
+                  children: <Widget>[
+                    SimpleDialogOption(
+                      onPressed: () {
+                        // _provider.updateStatus(id, Status.PENDING);
+                        Navigator.pop(context);
+                      },
+                      child: Text("保留"),
+                    ),
+                    SimpleDialogOption(
+                      onPressed: () {
+                        // _provider.updateStatus(id, Status.READY);
+                        Navigator.pop(context);
+                      },
+                      child: Text("着手可能"),
+                    ),
+                    SimpleDialogOption(
+                      onPressed: () {
+                        // _provider.updateStatus(id, Status.DOING);
+                        Navigator.pop(context);
+                      },
+                      child: Text("対応中"),
+                    ),
+                    SimpleDialogOption(
+                      onPressed: () {
+                        // _provider.updateStatus(id, Status.DONE);
+                        Navigator.pop(context);
+                      },
+                      child: Text("完了"),
+                    ),
+                  ],
+                );
+              }
+            );
+          },
         ),
       ),
     );
