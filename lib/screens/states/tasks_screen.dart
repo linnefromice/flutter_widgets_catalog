@@ -53,6 +53,26 @@ class TaskCard extends StatelessWidget {
 
   TaskCard(this.task);
 
+  String convertStatusMessage(final Status status) {
+    switch(status) {
+      case Status.PENDING:
+        return "保留";
+        break;
+      case Status.READY:
+        return "着手可能";
+        break;
+      case Status.DOING:
+        return "対応中";
+        break;
+      case Status.DONE:
+        return "完了";
+        break;
+      default:
+        return "UNKNOWN STATUS";
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -62,7 +82,7 @@ class TaskCard extends StatelessWidget {
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("ステータス: ${task.status}"),
+            Text("ステータス: ${convertStatusMessage(task.status)}"),
             Text("作成日: ${task.createDate}"),
             Text("更新日: ${task.updateDate}"),
           ],
