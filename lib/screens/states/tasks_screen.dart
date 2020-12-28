@@ -57,19 +57,14 @@ class TaskCard extends StatelessWidget {
     switch(status) {
       case Status.PENDING:
         return "保留";
-        break;
       case Status.READY:
         return "着手可能";
-        break;
       case Status.DOING:
         return "対応中";
-        break;
       case Status.DONE:
         return "完了";
-        break;
       default:
         return "UNKNOWN STATUS";
-        break;
     }
   }
 
