@@ -21,8 +21,8 @@ class Task {
   int id;
   String title;
   Status status;
-  String createDate;
-  String updateDate;
+  String createDate; // yyyy.mm.dd
+  String updateDate; // yyyy.mm.dd
 }
 
 final _tasksProvider = StateNotifierProvider((_) => TasksState());
