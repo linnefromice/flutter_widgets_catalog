@@ -48,6 +48,30 @@ class TasksState extends StateNotifier<List<Task>> {
   }
 }
 
+class TaskCard extends StatelessWidget {
+  final Task task;
+
+  TaskCard(this.task);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: ListTile(
+        leading: Icon(Icons.work),
+        title: Text(task.title),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("ステータス: ${task.status}"),
+            Text("作成日: ${task.createDate}"),
+            Text("更新日: ${task.updateDate}"),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class TasksScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
@@ -80,21 +104,7 @@ class TasksScreen extends HookWidget {
               ),
             );
           } else {
-            final task = state[index - 1];
-            return Card(
-              child: ListTile(
-                leading: Icon(Icons.work),
-                title: Text(task.title),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("ステータス: ${task.status}"),
-                    Text("作成日: ${task.createDate}"),
-                    Text("更新日: ${task.updateDate}"),
-                  ],
-                ),
-              ),
-            );
+            return TaskCard(state[index - 1]);
           }
         },
       )
