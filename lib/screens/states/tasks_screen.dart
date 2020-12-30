@@ -154,6 +154,28 @@ class TaskCard extends StatelessWidget {
 }
 
 class TasksScreen extends HookWidget {
+  Widget _buildCreateArea(final TextEditingController _textController, final TasksState _provider) {
+    return Card(
+      child: ListTile(
+        leading: Text("New"),
+        title: TextField(
+          controller: _textController,
+          decoration: InputDecoration(
+            hintText: 'Input new task title...',
+          ),
+        ),
+        trailing: IconButton(
+          icon: Icon(Icons.add),
+          onPressed: () {
+            _provider.create(
+              _textController.text
+            );
+          },
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final _textController = useTextEditingController();
@@ -165,25 +187,7 @@ class TasksScreen extends HookWidget {
         itemCount: state.length + 1,
         itemBuilder: (BuildContext context, int index) {
           if (index == 0) {
-            return Card(
-              child: ListTile(
-                leading: Text("New"),
-                title: TextField(
-                  controller: _textController,
-                  decoration: InputDecoration(
-                    hintText: 'Input new task title...',
-                  ),
-                ),
-                trailing: IconButton(
-                  icon: Icon(Icons.add),
-                  onPressed: () {
-                    _provider.create(
-                      _textController.text
-                    );
-                  },
-                ),
-              ),
-            );
+            return _buildCreateArea(_textController, _provider);
           } else {
             return TaskCard(state[index - 1], _provider);
           }
