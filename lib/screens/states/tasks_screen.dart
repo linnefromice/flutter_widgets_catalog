@@ -211,7 +211,14 @@ class TasksScreen extends HookWidget {
           if (index == 0) {
             return _buildCreateArea(_textController, _provider);
           } else {
-            return TaskCard(state[index - 1], _provider);
+            final Task task = state[index - 1];
+            return Dismissible(
+              key: Key("${task.id}"),
+              background: Container(color: Colors.blue, child: Icon(Icons.edit)),
+              secondaryBackground: Container(color: Colors.red, child: Icon(Icons.close)),
+              confirmDismiss: (direction) => Future.value(false), // Dummy
+              child: TaskCard(task, _provider),
+            );
           }
         },
       )
