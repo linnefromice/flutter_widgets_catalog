@@ -72,9 +72,9 @@ class TasksState extends StateNotifier<List<Task>> {
 
 class TaskCard extends StatelessWidget {
   final Task task;
-  final TasksState _provider;
+  final TasksState provider;
 
-  TaskCard(this.task, this._provider);
+  TaskCard(this.task, this.provider);
 
   String convertStatusMessage(final Status status) {
     switch(status) {
@@ -91,63 +91,71 @@ class TaskCard extends StatelessWidget {
     }
   }
 
+  Widget _buildSubTitle(final Task _task) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("ステータス: ${convertStatusMessage(_task.status)}"),
+        Text("作成日: ${_task.createDate}"),
+        Text("更新日: ${_task.updateDate}"),
+      ],
+    );
+  }
+
+  Widget _buildTrailing(final BuildContext context, final Task _task, final TasksState _provider) {
+    return IconButton(
+      icon: Icon(Icons.menu),
+      onPressed: () {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return SimpleDialog(
+              title: Text(_task.title),
+              children: <Widget>[
+                SimpleDialogOption(
+                  onPressed: () {
+                    _provider.updateStatus(_task.id, Status.PENDING);
+                    Navigator.pop(context);
+                  },
+                  child: Text("保留"),
+                ),
+                SimpleDialogOption(
+                  onPressed: () {
+                    _provider.updateStatus(_task.id, Status.READY);
+                    Navigator.pop(context);
+                  },
+                  child: Text("着手可能"),
+                ),
+                SimpleDialogOption(
+                  onPressed: () {
+                    _provider.updateStatus(_task.id, Status.DOING);
+                    Navigator.pop(context);
+                  },
+                  child: Text("対応中"),
+                ),
+                SimpleDialogOption(
+                  onPressed: () {
+                    _provider.updateStatus(_task.id, Status.DONE);
+                    Navigator.pop(context);
+                  },
+                  child: Text("完了"),
+                ),
+              ],
+            );
+          }
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
         leading: Icon(Icons.work),
         title: Text(task.title),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("ステータス: ${convertStatusMessage(task.status)}"),
-            Text("作成日: ${task.createDate}"),
-            Text("更新日: ${task.updateDate}"),
-          ],
-        ),
-        trailing: IconButton(
-          icon: Icon(Icons.menu),
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return SimpleDialog(
-                  title: Text(task.title),
-                  children: <Widget>[
-                    SimpleDialogOption(
-                      onPressed: () {
-                        _provider.updateStatus(task.id, Status.PENDING);
-                        Navigator.pop(context);
-                      },
-                      child: Text("保留"),
-                    ),
-                    SimpleDialogOption(
-                      onPressed: () {
-                        _provider.updateStatus(task.id, Status.READY);
-                        Navigator.pop(context);
-                      },
-                      child: Text("着手可能"),
-                    ),
-                    SimpleDialogOption(
-                      onPressed: () {
-                        _provider.updateStatus(task.id, Status.DOING);
-                        Navigator.pop(context);
-                      },
-                      child: Text("対応中"),
-                    ),
-                    SimpleDialogOption(
-                      onPressed: () {
-                        _provider.updateStatus(task.id, Status.DONE);
-                        Navigator.pop(context);
-                      },
-                      child: Text("完了"),
-                    ),
-                  ],
-                );
-              }
-            );
-          },
-        ),
+        subtitle: _buildSubTitle(task),
+        trailing: _buildTrailing(context, task, provider)
       ),
     );
   }
