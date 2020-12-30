@@ -102,6 +102,52 @@ class TaskCard extends StatelessWidget {
     );
   }
 
+  Widget _buildDialogOption(final BuildContext context, final TasksState _provider, final int _id, final Status _status, final String statusLabel) {
+    return SimpleDialogOption(
+      onPressed: () {
+        _provider.updateStatus(_id, _status);
+        Navigator.pop(context);
+      },
+      child: Text(statusLabel),
+    );
+  }
+
+  Widget _buildDialog(final BuildContext context, final Task _task, final TasksState _provider) {
+    return SimpleDialog(
+      title: Text(_task.title),
+      children: <Widget>[
+        _buildDialogOption(
+          context,
+          _provider,
+          _task.id,
+          Status.PENDING,
+          "保留"
+        ),
+        _buildDialogOption(
+          context,
+          _provider,
+          _task.id,
+          Status.READY,
+          "着手可能"
+        ),
+        _buildDialogOption(
+          context,
+          _provider,
+          _task.id,
+          Status.DOING,
+          "対応中"
+        ),
+        _buildDialogOption(
+          context,
+          _provider,
+          _task.id,
+          Status.DONE,
+          "完了"
+        ),
+      ],
+    );
+  }
+
   Widget _buildTrailing(final BuildContext context, final Task _task, final TasksState _provider) {
     return IconButton(
       icon: Icon(Icons.menu),
@@ -109,39 +155,7 @@ class TaskCard extends StatelessWidget {
         showDialog(
           context: context,
           builder: (context) {
-            return SimpleDialog(
-              title: Text(_task.title),
-              children: <Widget>[
-                SimpleDialogOption(
-                  onPressed: () {
-                    _provider.updateStatus(_task.id, Status.PENDING);
-                    Navigator.pop(context);
-                  },
-                  child: Text("保留"),
-                ),
-                SimpleDialogOption(
-                  onPressed: () {
-                    _provider.updateStatus(_task.id, Status.READY);
-                    Navigator.pop(context);
-                  },
-                  child: Text("着手可能"),
-                ),
-                SimpleDialogOption(
-                  onPressed: () {
-                    _provider.updateStatus(_task.id, Status.DOING);
-                    Navigator.pop(context);
-                  },
-                  child: Text("対応中"),
-                ),
-                SimpleDialogOption(
-                  onPressed: () {
-                    _provider.updateStatus(_task.id, Status.DONE);
-                    Navigator.pop(context);
-                  },
-                  child: Text("完了"),
-                ),
-              ],
-            );
+            return _buildDialog(context, _task, _provider);
           }
         );
       },
