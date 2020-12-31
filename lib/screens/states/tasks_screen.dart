@@ -68,6 +68,10 @@ class TasksState extends StateNotifier<List<Task>> {
       _dateFormat.format(DateTime.now()),
     )];
   }
+
+  void delete(final int id) {
+    state.removeWhere((element) => element.id == id);
+  }
 }
 
 class TaskCard extends StatelessWidget {
@@ -179,7 +183,6 @@ class TasksScreen extends HookWidget {
   Widget _buildCreateArea(final TextEditingController _textController, final TasksState _provider) {
     return Card(
       child: ListTile(
-        leading: Text("New"),
         title: TextField(
           controller: _textController,
           decoration: InputDecoration(
@@ -192,6 +195,7 @@ class TasksScreen extends HookWidget {
             _provider.create(
               _textController.text
             );
+            _textController.clear();
           },
         ),
       ),
@@ -246,7 +250,7 @@ class TasksScreen extends HookWidget {
                 }
               },
               onDismissed: (direction) {
-                // TODO: task delete
+                _provider.delete(task.id);
               },
               child: TaskCard(task, _provider),
             );
