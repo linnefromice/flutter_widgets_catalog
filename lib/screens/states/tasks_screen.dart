@@ -198,6 +198,28 @@ class TasksScreen extends HookWidget {
     );
   }
 
+  Future<bool> _isDismiss(final BuildContext context, final Task task) async {
+    return await showDialog(
+        context: context,
+        builder: (_) {
+        return AlertDialog(
+          title: Text("削除しますか？"),
+          content: Text("対象: ${task.title}"),
+          actions: [
+            FlatButton(
+              child: Text("Cancel"),
+              onPressed: () => Navigator.pop(context, false),
+            ),
+            FlatButton(
+              child: Text("OK"),
+              onPressed: () => Navigator.pop(context, true),
+            ),
+          ],
+        );
+      }
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final _textController = useTextEditingController();
@@ -216,7 +238,16 @@ class TasksScreen extends HookWidget {
               key: Key("${task.id}"),
               background: Container(color: Colors.blue, child: Icon(Icons.edit)),
               secondaryBackground: Container(color: Colors.red, child: Icon(Icons.close)),
-              confirmDismiss: (direction) => Future.value(false), // Dummy
+              confirmDismiss: (direction) {
+                if (direction == DismissDirection.startToEnd) {
+                  return Future.value(false);
+                } else {
+                  return _isDismiss(context, task);
+                }
+              },
+              onDismissed: (direction) {
+                // TODO: task delete
+              },
               child: TaskCard(task, _provider),
             );
           }
