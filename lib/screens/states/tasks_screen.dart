@@ -69,6 +69,29 @@ class TasksState extends StateNotifier<List<Task>> {
     )];
   }
 
+  void updateTitle(final int id, final String title) {
+    final _dateFormat = DateFormat('yyyy.MM.dd');
+    int oldTaskIndex;
+    Task oldTask;
+    print("Run updateTitle ... ${id.toString()} / $title");
+    state.asMap().forEach((int index, Task element) {
+      if (element.id == id) {
+        oldTask = element;
+        oldTaskIndex = index;
+        return;
+      }
+    });
+    state.removeAt(oldTaskIndex);
+    state = [...state, Task(
+      oldTask.id,
+      title,
+      oldTask.status,
+      oldTask.createDate,
+      _dateFormat.format(DateTime.now()),
+    )];
+  }
+
+
   void delete(final int id) {
     state.removeWhere((element) => element.id == id);
   }
@@ -224,7 +247,7 @@ class TasksScreen extends HookWidget {
     );
   }
 
-  void _displayModifyTaskDialog(final BuildContext context, final TextEditingController _textController, final Task task) {
+  void _displayModifyTaskDialog(final BuildContext context, final TextEditingController _textController, final TasksState _provider, final Task task) {
     showDialog(
       context: context,
       builder: (_) {
@@ -250,7 +273,10 @@ class TasksScreen extends HookWidget {
             FlatButton(
               child: Text("MODIFY"),
               onPressed: () {
-                print(_textController.text); // TODO: update state
+                _provider.updateTitle(
+                  task.id,
+                  _textController.text
+                );
                 _textController.clear();
                 Navigator.pop(context);
               },
@@ -282,7 +308,7 @@ class TasksScreen extends HookWidget {
               secondaryBackground: Container(color: Colors.red, child: Icon(Icons.close)),
               confirmDismiss: (direction) {
                 if (direction == DismissDirection.startToEnd) {
-                  _displayModifyTaskDialog(context, _titleController, task);
+                  _displayModifyTaskDialog(context, _titleController, _provider, task);
                   return Future.value(false);
                 } else {
                   return _isDismiss(context, task);
