@@ -224,6 +224,37 @@ class TasksScreen extends HookWidget {
     );
   }
 
+  void _displayModifyTaskDialog(final BuildContext context, final Task task) {
+    showDialog(
+      context: context,
+      builder: (_) {
+        return AlertDialog(
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("タイトル修正"),
+              Text("現状: ${task.title}"),
+            ],
+          ),
+          content: Text("Form"), // TODO: create form
+          actions: [
+            FlatButton(
+              child: Text("Cancel"),
+              onPressed: () => Navigator.pop(context),
+            ),
+            FlatButton(
+              child: Text("MODIFY"),
+              onPressed: () {
+                // TODO: update state
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      }
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final _textController = useTextEditingController();
@@ -244,6 +275,7 @@ class TasksScreen extends HookWidget {
               secondaryBackground: Container(color: Colors.red, child: Icon(Icons.close)),
               confirmDismiss: (direction) {
                 if (direction == DismissDirection.startToEnd) {
+                  _displayModifyTaskDialog(context, task);
                   return Future.value(false);
                 } else {
                   return _isDismiss(context, task);
