@@ -224,7 +224,7 @@ class TasksScreen extends HookWidget {
     );
   }
 
-  void _displayModifyTaskDialog(final BuildContext context, final Task task) {
+  void _displayModifyTaskDialog(final BuildContext context, final TextEditingController _textController, final Task task) {
     showDialog(
       context: context,
       builder: (_) {
@@ -236,7 +236,12 @@ class TasksScreen extends HookWidget {
               Text("現状: ${task.title}"),
             ],
           ),
-          content: Text("Form"), // TODO: create form
+          content: TextField(
+            controller: _textController,
+            decoration: InputDecoration(
+              hintText: 'Input new title of this task...',
+            ),
+          ),
           actions: [
             FlatButton(
               child: Text("Cancel"),
@@ -245,7 +250,8 @@ class TasksScreen extends HookWidget {
             FlatButton(
               child: Text("MODIFY"),
               onPressed: () {
-                // TODO: update state
+                print(_textController.text); // TODO: update state
+                _textController.clear();
                 Navigator.pop(context);
               },
             ),
@@ -258,6 +264,7 @@ class TasksScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final _textController = useTextEditingController();
+    final _titleController = useTextEditingController();
     final state = useProvider(_tasksProvider.state);
     final _provider = useProvider(_tasksProvider);
 
@@ -275,7 +282,7 @@ class TasksScreen extends HookWidget {
               secondaryBackground: Container(color: Colors.red, child: Icon(Icons.close)),
               confirmDismiss: (direction) {
                 if (direction == DismissDirection.startToEnd) {
-                  _displayModifyTaskDialog(context, task);
+                  _displayModifyTaskDialog(context, _titleController, task);
                   return Future.value(false);
                 } else {
                   return _isDismiss(context, task);
