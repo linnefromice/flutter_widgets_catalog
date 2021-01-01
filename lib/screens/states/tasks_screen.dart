@@ -239,7 +239,7 @@ class TasksScreen extends HookWidget {
           content: TextField(
             controller: _textController,
             decoration: InputDecoration(
-              hintText: 'Input new title of this task...',
+              hintText: 'Input new title of this task ...',
             ),
           ),
           actions: [
